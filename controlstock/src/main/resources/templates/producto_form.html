@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Control Stock</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    </head>
+    <body>
+        <header>
+            <div class="container">
+                <h2>CARGAR EL PEDIDO</h2>
+            </div>
+        </header>
+        
+        <div class="container">
+            
+            <form action="/producto/registro" method="POST">
+                <div class="mb-3">
+                    <label for="formGroupExampleInput" class="form-label">ID</label>
+                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Inserte el ID aquí" name="id">
+                </div>
+                
+                <div class="mb-3">
+                    <label for="formGroupExampleInput" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Inserte el nombre aquí" name="nombre">
+                </div>
+                
+                <div class="mb-3">
+                    <label for="formGroupExampleInput2" class="form-label">Cantidad</label>
+                    <input type="number" class="form-control" id="formGroupExampleInput2" placeholder="Inserte la cantidad aquí" name="cantidad">
+                </div>
+                
+                <div class="mb-3">
+                    <label for="formGroupExampleInput2" class="form-label">Descripción</label>
+                    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Inserte la Descripción aquí" name="descripcion">
+                </div>
+                
+                <div class="mb-3">
+                    <label for="formGroupExampleInput2" class="form-label">Precio</label>
+                    <input type="number" class="form-control" id="formGroupExampleInput2" placeholder="Inserte el precio aquí" name="precio">
+                </div>
+                
+                <label class="form-label">Ingresar un Proveedor</label>
+                <div class="form-group my-3">
+                    <select name="idProveedor">
+                        <option></option>
+                        <option th:each="proveedor : ${proveedores}"
+                                th:value="${proveedor.id}"
+                                th:text="${proveedor.nombre}"/>
+                    </select>
+                    
+                </div>
+                
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Cargar</button>
+                </div>
+            </form>
+            
+            
+        </div>
+        
+    </body>
+</html>
