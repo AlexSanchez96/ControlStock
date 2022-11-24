@@ -36,6 +36,13 @@
                     <input type="tel" class="form-control" id="formGroupExampleInput2" placeholder="Inserte el teléfono aquí" name="telefono">
                 </div>
                 
+                <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError">
+                    <div class="card-body">
+                        <h5 class="card-title">Error!</h5>
+                        <p class="card-text" th:text="${error}"></p>
+                    </div>
+                </div>
+                
                 <div class="col-12">
                     <button type="submit" class="btn btn-primary">Cargar</button>
                 </div>

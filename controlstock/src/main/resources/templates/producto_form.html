@@ -9,14 +9,14 @@
     <body>
         <header>
             <div class="container">
-                <h2>CARGAR EL PEDIDO</h2>
+                <h2>CARGAR EL PRODUCTO</h2>
             </div>
         </header>
         
-        <div class="container">
+        <div class="container-fluid m-5 contenedor">
             
-            <form action="/producto/registro" method="POST">
-                <div class="mb-3">
+            <form class="formulario" action="/producto/registro" method="POST">
+                <div class="form-group my-3">
                     <label for="formGroupExampleInput" class="form-label">ID</label>
                     <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Inserte el ID aquí" name="id">
                 </div>
@@ -44,13 +44,30 @@
                 <label class="form-label">Ingresar un Proveedor</label>
                 <div class="form-group my-3">
                     <select name="idProveedor">
-                        <option></option>
+                        <option>Proveedor</option>
                         <option th:each="proveedor : ${proveedores}"
                                 th:value="${proveedor.id}"
                                 th:text="${proveedor.nombre}"/>
                     </select>
                     
                 </div>
+                
+                
+                <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError">
+                    <div class="card-body">
+                        <h5 class="card-title">Error!</h5>
+                        <p class="card-text" th:text="${error}"></p>
+                    </div>
+                </div>
+                
+                <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito">
+                    <div class="card-body">
+                        <h5 class="card-title">Exito!</h5>
+                        <p class="card-text" th:text="${exito}"></p>
+                    </div>
+                </div>
+                
+                
                 
                 <div class="col-12">
                     <button type="submit" class="btn btn-primary">Cargar</button>
