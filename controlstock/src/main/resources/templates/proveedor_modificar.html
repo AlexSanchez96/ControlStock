@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Control Stock</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    </head>
+    <body>
+        <header>
+            <div class="container">
+                <h2>MODIFICAR PROVEEDOR</h2>
+            </div>
+        </header>
+        
+        <div class="container">
+            
+            <form th:action="@{/proveedor/modificar/__${proveedor.id}__}" method="POST">
+                
+                <input hidden th:value="${id}" name="id">
+                
+                
+                <div class="mb-3">
+                    <label for="formGroupExampleInput" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="formGroupExampleInput" th:value="${proveedor.nombre}" name="nombre">
+                </div>
+                
+                <div class="mb-3">
+                    <label for="formGroupExampleInput2" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="formGroupExampleInput2" th:value="${proveedor.email}" name="email">
+                </div>
+                
+                <div class="mb-3">
+                    <label for="formGroupExampleInput2" class="form-label">Lugar</label>
+                    <input type="text" class="form-control" id="formGroupExampleInput2" th:value="${proveedor.lugar}" name="lugar">
+                </div>
+                
+                <div class="mb-3">
+                    <label for="formGroupExampleInput2" class="form-label">Teléfono</label>
+                    <input type="tel" class="form-control" id="formGroupExampleInput2" th:value="${proveedor.telefono}" name="telefono">
+                </div>
+                
+                <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError">
+                    <div class="card-body">
+                        <h5 class="card-title">Error!</h5>
+                        <p class="card-text" th:text="${error}"></p>
+                    </div>
+                </div>
+                
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Modificar</button>
+                </div>
+            </form>
+            
+            
+        </div>
+        
+    </body>
+</html>
+

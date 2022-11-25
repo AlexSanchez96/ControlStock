@@ -1,5 +1,6 @@
 package com.sem.controlstock.controladores;
 
+import com.sem.controlstock.entidades.Producto;
 import com.sem.controlstock.entidades.Proveedor;
 import com.sem.controlstock.excepciones.MiException;
 import com.sem.controlstock.servicios.ProductoServicio;
@@ -53,6 +54,17 @@ public class ProductoControlador {
         }
         return "index.html";
     
+    }
+    
+    @GetMapping("/lista")
+    public String listar(ModelMap modelo){
+        
+        List<Producto> productos = productoServicio.listarProductos();
+        
+        modelo.addAttribute("productos", productos);
+        
+        return "productos_list.html";
+        
     }
     
 }

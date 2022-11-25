@@ -57,6 +57,10 @@ public class ProveedorServicio {
         }
     }
     
+    public Proveedor getOne(String id){
+        return proveedorRepositorio.getOne(id);
+    }
+    
     private void validar(String nombre, String email, String lugar, String telefono) throws MiException{
         if (nombre == null || nombre.isEmpty()) {
             throw new MiException("El nombre no puede ser nulo ni estar vacio");
