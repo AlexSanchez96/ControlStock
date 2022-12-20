@@ -4,9 +4,8 @@ import com.sem.controlstock.entidades.Proveedor;
 import com.sem.controlstock.excepciones.MiException;
 import com.sem.controlstock.servicios.ProveedorServicio;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,8 +13,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
+@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
 @RequestMapping("/proveedor")
 public class ProveedorControlador {
     
@@ -29,18 +30,20 @@ public class ProveedorControlador {
     
     @PostMapping("/registro")
     public String registro(@RequestParam String nombre, @RequestParam String email, @RequestParam String lugar,
-            @RequestParam String telefono, ModelMap modelo){
+            @RequestParam String telefono, ModelMap modelo, RedirectAttributes redirectAttrs){
         
         try {
             proveedorServicio.crearProveedor(nombre, email, lugar, telefono);
-            modelo.put("exito", "El proveedor fue cargado correctamente");
+            redirectAttrs
+            .addFlashAttribute("mensaje", "Proveedor cargado correctamente")
+            .addFlashAttribute("clase", "success");
         } catch (MiException ex) {
             
             modelo.put("error", ex.getMessage());
             return "proveedor_form.html";
         }
         
-        return "index.html";
+        return "redirect:/proveedor/lista";
     }
     
     @GetMapping("/lista")
@@ -63,17 +66,18 @@ public class ProveedorControlador {
     
     @PostMapping("/modificar/{id}")
     public String modificar(@PathVariable String id, String nombre, String email,
-            String lugar, String telefono, ModelMap modelo){
+            String lugar, String telefono, ModelMap modelo, RedirectAttributes redirectAttrs){
         
         try {
             proveedorServicio.modificarProveedor(id, nombre, email, telefono, lugar);
-            modelo.put("mensaje", "El proveedor fue eliminado correctamente");
-            modelo.put("clase", "success");
-            return "redirect:../lista";
+            redirectAttrs
+            .addFlashAttribute("mensaje", "Proveedor modificado correctamente")
+            .addFlashAttribute("clase", "success");
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
             return "proveedor_modificar.html";
         }
+        return "redirect:/proveedor/lista";
     }
     
 }

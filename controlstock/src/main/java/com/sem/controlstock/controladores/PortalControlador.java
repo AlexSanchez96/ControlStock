@@ -33,9 +33,7 @@ public class PortalControlador {
         Usuario logeado = (Usuario) session.getAttribute("usuariosession");
         
         if (logeado.getRol().toString().equals("ADMIN")) {
-            List <Usuario> usuarios = usuarioServicio.listarUsuarios();
-            modelo.addAttribute("usuarios", usuarios);
-            return "panelusuario.html";
+            return "index.html";
         }
         
         

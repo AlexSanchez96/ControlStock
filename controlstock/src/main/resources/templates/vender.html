@@ -38,12 +38,13 @@
                 <br>
                 <div class="form-group my-3">
                     <select name="idCliente">
-                        <option>Ingresar un cliente</option>
+                        <option selected>Ingresar un cliente</option>
                         <option th:each="cliente : ${clientes}"
                                 th:value="${cliente.id}"
                                 th:text="${cliente.nombre}"/>
                     </select>  
                 </div>
+                
             </form>
             <h1 th:text="${'Total: ' + total}"></h1>
             <div class="table-responsive">
