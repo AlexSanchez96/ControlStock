@@ -12,7 +12,17 @@
              class="alert">
         </div>
         
-        <div>ESTAMOS EN EL INDEX</div>
+        <div id="divPadre">
+
+            <div id="divHijo">
+                <div class="p-3 mb-2 bg-light text-dark" role="alert">
+                    <h3 class="card-title">
+                        <p th:if="${session.usuariosession != null}" th:text=" 'Bienvenido '+ ${session.usuariosession.nombre} + ','"></p>
+                    </h3>
+                    <h5 class="card-title">Sistema de ventas y control Spring Boot</h5>
+                </div>
+            </div>
+        </div>
         
         <footer th:replace = "/layouts/pie :: footer"</footer>
     </body>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="master">
+    <head> 
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="Punto de venta con Spring Boot. Control de inventario y ventas ">
+        <meta name="author" content="Parzibyte">
+        <title>Sistema de ventas Spring Boot</title>
+        <!-- Cargar el CSS de Boostrap-->
+        <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+        <link th:href="@{/css/fa.min.css}" rel="stylesheet">
+        <link th:href="@{/css/style.css}" rel="stylesheet">
+        <style>
+            #divPadre {
+                height:100px;
+                width:1000px;
+                text-align:center;
+                margin:30px auto;
+            }
+            
+            #divLogin {
+                height:50px;
+                width:400px;
+                margin:0px auto;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <nav th:replace="/layouts/navbar :: nav" </nav>
+        </header>
+        <div th:classappend="'alert-' + (${clase != null} ? ${clase} : info)" th:if="${mensaje != null}"
+             th:text="${mensaje}"
+             class="alert">
+        </div>
+        
+        
+        
+        <div id="divPadre">
+            
+            <div class="mb-4">
+                <label class="text-secondary"><h2>Ingresar un usuario</h2></label>
+            </div>
+            
+            <div id="divLogin">  
+                <form class="formulario" th:action="@{/logincheck}" method="POST">
+
+                        <hr>
+                        <div class="mb-3">
+
+                            <input type="text" class="form-control" name="nombre" placeholder="Nombre">
+                        </div>
+
+                        <div class="mb-3">
+
+                            <input type="password" class="form-control" name="password" placeholder="Contraseña">
+                        </div>
+
+                        <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError">
+                            <div class="card-body">
+                                <h5 class="card-title">ERROR</h5>
+                                <p class="card-text" th:text="${error}"></p>
+                            </div>
+                        </div>
+
+                        <div th:if="${exito != null}" class="card text-white bg-danger mb-3 mt-3 mensajeExito">
+                            <div class="card-body">
+                                <h5 class="card-title">EXITO!</h5>
+                                <p class="card-text" th:text="${exito}"></p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-primary">INGRESAR</button>
+                        </div>
+                </form>
+            </div>
+            
+        </div>
+        
+        
+        
+        
+        <footer th:replace = "/layouts/pie :: footer"</footer>
+    </body>
+</html>

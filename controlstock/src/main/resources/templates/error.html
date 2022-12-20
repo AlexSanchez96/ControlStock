@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="master">
+    <head th:replace = "/layouts/encabezado :: head"> 
+        <style>
+            #divPadre {
+                height:100px;
+                width:1000px;
+                text-align:center;
+                margin:30px auto;
+            }
+            
+            #divRegistro {
+                height:50px;
+                width:400px;
+                margin:0px auto;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <nav th:replace="/layouts/navbar :: nav" </nav>
+        </header> 
+        
+        <div id="divPadre">
+
+            <div id="divHijo">
+                <div class="p-3 mb-2 bg-light text-dark" role="alert">
+                    <h3 class="card-title">
+                        <p th:text="'Error ' + ${codigo}"></p>
+                    </h3>
+                    <h5 class="card-title">
+                        <p th:text="${mensaje}"></p>
+                    </h5>
+                </div>
+            </div>
+        </div>
+        
+        <footer th:replace = "/layouts/pie :: footer"</footer>
+    </body>
+</html>
