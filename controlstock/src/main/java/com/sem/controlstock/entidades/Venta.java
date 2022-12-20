@@ -29,6 +29,9 @@ public class Venta {
     
     //CONSTRUCTOR
 
+    public Venta() {
+    }
+    
     public Venta(Cliente cliente) {
         this.cliente = cliente;
         this.alta = new Date();

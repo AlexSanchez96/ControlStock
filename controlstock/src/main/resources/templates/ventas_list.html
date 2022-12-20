@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="master">
+    <head th:replace = "/layouts/encabezado :: head"</head>
+    <body>
+        <header>
+            <nav th:replace="/layouts/navbar :: nav" </nav>
+        </header>
+        <div th:classappend="'alert-' + (${clase != null} ? ${clase} : info)" th:if="${mensaje != null}"
+             th:text="${mensaje}"
+             class="alert">
+        </div>
+        
+        
+        
+        <a class="btn btn-success mb-2" th:href="@{/vender/registrar}">Agregar</a>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Total</th>
+                    <th>Productos</th>
+                    <th>Cliente</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="venta : ${ventas}">
+                    <td th:text="${venta.alta}"></td>
+                    <td th:text="${venta.total}"></td>
+                    <td>
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Proveedor</th>
+                                <th>Cantidad vendida</th>
+                                <th>Precio</th>
+                                <th>Total</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="producto : ${venta.productos}">
+                                <td th:text="${producto.nombre}"></td>
+                                <td th:text="${producto.proveedor}"></td>
+                                <td th:text="${producto.cantidadVendida}"></td>
+                                <td th:text="${producto.precio}"></td>
+                                <td th:text="${producto.total}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td th:text="${venta.cliente.nombre}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        
+        
+        
+        
+        
+        
+        <footer th:replace = "/layouts/pie :: footer"</footer>
+    </body>
+</html>
