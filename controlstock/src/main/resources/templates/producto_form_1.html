@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="master">
+    <head th:replace = "/layouts/encabezado :: head"</head>
+    <body>
+        <header>
+            <nav th:replace="/layouts/navbar :: nav" </nav>
+        </header>
+        <main>
+            <div class="col-8">
+                <h2>Agregar producto</h2>
+                <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError">
+                    <div class="card-body">
+                        <h5 class="card-title">Error!</h5>
+                        <p class="card-text" th:text="${error}"></p>
+                    </div>
+                </div>
+
+                <form action="/producto/registro" method="POST">
+                    <div class="form-group">
+                        <label for="nombre">Nombre del producto</label>
+                        <input autocomplete="off" autofocus id="nombre"
+                               placeholder="Escribe el nombre del producto" type="text"
+                               class="form-control" name="nombre">
+                    </div>
+                    <div class="form-group">
+                        <label for="existencia">Existencia actual</label>
+                        <input autocomplete="off" id="existencia"
+                               placeholder="Cantidad actual del producto" type="number"
+                               class="form-control" name="cantidad">
+                    </div>
+                    <div class="form-group">
+                        <label for="codigo">Descripción</label>
+                        <input autocomplete="off" id="codigo" placeholder="Escribe una descripción del producto"
+                               type="text"
+                               class="form-control" name="descripcion">
+                    </div>
+                    <div class="form-group">
+                        <label for="existencia">Precio</label>
+                        <input autocomplete="off" id="precio" placeholder="Precio del producto"
+                               type="number"
+                               class="form-control" name="precio">
+                    </div>
+                    
+                    <label class="form-label">Ingresar un Proveedor</label>
+                    <div class="form-group my-3">
+                        <select name="idProveedor">
+                            <option>Proveedor</option>
+                            <option th:each="proveedor : ${proveedores}"
+                                    th:value="${proveedor.id}"
+                                    th:text="${proveedor.nombre}"/>
+                        </select>
+
+                    </div>
+                    
+                    
+                    <button class="btn btn-success" type="submit">Guardar</button>
+                    <a class="btn btn-warning" th:href="@{/producto/lista}">Ver todos</a>
+                </form>
+            </div>
+        </main>
+        <footer th:replace = "/layouts/pie :: footer"</footer>
+    </body>
+</html>

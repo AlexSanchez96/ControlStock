@@ -9,44 +9,57 @@
     <body>
         <header>
             <div class="container">
-                <h2>CARGAR EL PRODUCTO</h2>
+                <h2>CARGAR EL PEDIDO</h2>
             </div>
         </header>
         
         <div class="container-fluid m-5 contenedor">
             
-            <form class="formulario" action="/producto/registro" method="POST">
+            <form class="formulario" action="/pedido/registro" method="POST">
               
                 <div class="mb-3">
-                    <label for="formGroupExampleInput" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Inserte el nombre aquí" name="nombre">
+                    <label for="formGroupExampleInput" class="form-label">Descuento</label>
+                    <input type="number" class="form-control" id="formGroupExampleInput" placeholder="Inserte el descuento aquí" name="descuento">
                 </div>
                 
                 <div class="mb-3">
-                    <label for="formGroupExampleInput2" class="form-label">Cantidad</label>
-                    <input type="number" class="form-control" id="formGroupExampleInput2" placeholder="Inserte la cantidad aquí" name="cantidad">
+                    <label for="formGroupExampleInput" class="form-label">SubTotal</label>
+                    <input type="number" class="form-control" id="formGroupExampleInput" placeholder="Inserte el subtotal aquí" name="subtotal">
                 </div>
                 
                 <div class="mb-3">
-                    <label for="formGroupExampleInput2" class="form-label">Descripción</label>
-                    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Inserte la Descripción aquí" name="descripcion">
+                    <label for="formGroupExampleInput" class="form-label">iva</label>
+                    <input type="number" class="form-control" id="formGroupExampleInput" placeholder="Inserte el iva aquí" name="iva">
                 </div>
                 
                 <div class="mb-3">
-                    <label for="formGroupExampleInput2" class="form-label">Precio</label>
-                    <input type="number" class="form-control" id="formGroupExampleInput2" placeholder="Inserte el precio aquí" name="precio">
+                    <label for="formGroupExampleInput" class="form-label">Total</label>
+                    <input type="number" class="form-control" id="formGroupExampleInput" placeholder="Inserte el total aquí" name="total">
                 </div>
                 
-                <label class="form-label">Ingresar un Proveedor</label>
+                
+                
+                <label class="form-label">Ingresar un Cliente</label>
                 <div class="form-group my-3">
-                    <select name="idProveedor">
-                        <option>Proveedor</option>
-                        <option th:each="proveedor : ${proveedores}"
-                                th:value="${proveedor.id}"
-                                th:text="${proveedor.nombre}"/>
-                    </select>
-                    
+                    <select name="idCliente">
+                        <option>Cliente</option>
+                        <option th:each="cliente : ${clientes}"
+                                th:value="${cliente.id}"
+                                th:text="${cliente.nombre}"/>
+                    </select>  
                 </div>
+                
+                <label class="form-label">Ingresar un Producto</label>
+                <div class="form-group my-3">
+                    <select name="idProducto">
+                        <option>Producto</option>
+                        <option th:each="producto : ${productos}"
+                                th:value="${producto.id}"
+                                th:text="${producto.nombre}"/>
+                    </select>  
+                </div>
+                
+                
                 
                 
                 <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError">

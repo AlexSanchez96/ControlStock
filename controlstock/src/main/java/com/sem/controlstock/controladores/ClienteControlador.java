@@ -1,11 +1,9 @@
 package com.sem.controlstock.controladores;
 
-import com.sem.controlstock.entidades.Proveedor;
+import com.sem.controlstock.entidades.Cliente;
 import com.sem.controlstock.excepciones.MiException;
-import com.sem.controlstock.servicios.ProveedorServicio;
+import com.sem.controlstock.servicios.ClienteServicio;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -16,64 +14,63 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/proveedor")
-public class ProveedorControlador {
+@RequestMapping("/cliente")
+public class ClienteControlador {
     
     @Autowired
-    private ProveedorServicio proveedorServicio;
+    private ClienteServicio clienteServicio;
     
     @GetMapping("/registrar")
     public String registrar(){
-        return "proveedor_form.html";
+        return "cliente_form.html"; 
     }
     
     @PostMapping("/registro")
-    public String registro(@RequestParam String nombre, @RequestParam String email, @RequestParam String lugar,
-            @RequestParam String telefono, ModelMap modelo){
+    public String registro(@RequestParam String nombre, @RequestParam String email, @RequestParam String direccion,
+            @RequestParam String lugar, @RequestParam String telefono,  ModelMap modelo){
         
         try {
-            proveedorServicio.crearProveedor(nombre, email, lugar, telefono);
-            modelo.put("exito", "El proveedor fue cargado correctamente");
+            clienteServicio.crearCliente(nombre, email, direccion, lugar, telefono);
+            modelo.put("mensaje", "El cliente fue cargado correctamente");
+            modelo.put("clase", "success");
+            
         } catch (MiException ex) {
             
             modelo.put("error", ex.getMessage());
-            return "proveedor_form.html";
+            return "cliente_form.html";
         }
-        
         return "index.html";
     }
     
     @GetMapping("/lista")
     public String listar(ModelMap modelo){
         
-        List<Proveedor> proveedores = proveedorServicio.listarProveedores();
+        List<Cliente> clientes = clienteServicio.listarClientes();
         
-        modelo.addAttribute("proveedores", proveedores);
+        modelo.addAttribute("clientes", clientes);
         
-        return "proveedor_list.html";    
+        return "cliente_list.html";    
     }
     
     @GetMapping("/modificar/{id}")
     public String modificar(@PathVariable String id, ModelMap modelo){
         
-        modelo.put("proveedor", proveedorServicio.getOne(id));
+        modelo.put("cliente", clienteServicio.getOne(id));
         
-        return "proveedor_modificar.html";
+        return "cliente_modificar.html";
     }
     
     @PostMapping("/modificar/{id}")
     public String modificar(@PathVariable String id, String nombre, String email,
-            String lugar, String telefono, ModelMap modelo){
+            String direccion, String lugar, String telefono, ModelMap modelo){
         
         try {
-            proveedorServicio.modificarProveedor(id, nombre, email, telefono, lugar);
-            modelo.put("mensaje", "El proveedor fue eliminado correctamente");
-            modelo.put("clase", "success");
+            clienteServicio.modificarCliente(id, nombre, email, direccion, lugar, telefono);
+            modelo.put("exito", "El cliente fue modificado correctamente");
             return "redirect:../lista";
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
-            return "proveedor_modificar.html";
+            return "cliente_modificar.html";
         }
     }
-    
 }

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Control Stock</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    </head>
+    <body>
+        <header>
+            <div class="container">
+                <h2>AGREGAR PRODUCTOS</h2>
+            </div>
+        </header>
+        <div>
+            <form class="formulario" action="/pedido/registro_producto" method="POST">
+                
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col">Proveedor</th>
+                        </tr>
+                    </thead>
+                    <tbody th:each="producto : ${productos}">
+                        <tr>
+                            <th th:text="${producto.nombre}"></th>
+                            <td th:text="${producto.cantidad}"></td>
+                            <td th:text="${producto.precio}"></td>
+                            <td th:text="${producto.proveedor.nombre}"></td>
+                            <td>
+                                <div class="input-group-text">
+                                    <input type="checkbox" aria-label="Checkbox for following text input" th:name="idProductos" th:value="${producto.id}">
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Agregar</button>
+                </div>  
+            </form>
+        </div>
+    </body>
+</html>

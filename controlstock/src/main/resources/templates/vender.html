@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="master">
+    <head th:replace = "/layouts/encabezado :: head"</head>
+    <body>
+        <header>
+            <nav th:replace="/layouts/navbar :: nav" </nav>
+        </header>
+        <div th:classappend="'alert-' + (${clase != null} ? ${clase} : info)" th:if="${mensaje != null}"
+             th:text="${mensaje}"
+             class="alert">
+        </div>
+        
+        <div class="col-12">
+            <h2>Vender</h2>
+            
+            <form th:object="${producto}" th:action="@{/vender/agregar}" method="POST">
+                <div class="form-group">
+                    <label for="nombre">Buscar por nombre</label>
+                    <input autofocus autocomplete="off" th:field="*{nombre}" id="nombre"
+                           placeholder="Escribre el nombre del producto y presiona Enter"
+                           type="text"
+                           class="form-control">
+                    <div class="invalid-feedback" th:errors="*{nombre}"></div>
+
+                </div>
+            </form>
+            
+            
+            
+            <form class="mb-2" th:action="@{/vender/terminar}" method="POST">
+                <button type="submit" class="btn btn-success">Terminar&nbsp;<i class="fa fa-check"></i>
+                </button>
+                <a th:href="@{/vender/limpiar}" class="btn btn-danger">Cancelar venta&nbsp;<i
+                        class="fa fa-trash"></i>
+                </a>
+                <br>
+                <div class="form-group my-3">
+                    <select name="idCliente">
+                        <option>Ingresar un cliente</option>
+                        <option th:each="cliente : ${clientes}"
+                                th:value="${cliente.id}"
+                                th:text="${cliente.nombre}"/>
+                    </select>  
+                </div>
+            </form>
+            <h1 th:text="${'Total: ' + total}"></h1>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Unidades</th>
+                            <th>Precio</th>
+                            <th>Total</th>
+                            <th>Quitar de lista</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="producto, iterador : ${session.carrito}">
+                            <td th:text="${producto.nombre}"></td>
+                            <td th:text="${producto.cantidadVendida}"></td>
+                            <td th:text="${producto.precio}"></td>
+                            <td th:text="${producto.total}"></td>
+                            <td>
+                                <form th:action="@{/vender/quitar/} + ${iterador.index}" method="POST">
+                                    <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <footer th:replace = "/layouts/pie :: footer"</footer>
+    </body>
+</html>

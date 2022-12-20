@@ -2,18 +2,21 @@ package com.sem.controlstock.entidades;
 
 
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.GenericGenerator;
 
 
 @Entity
 public class Producto {
     //ATRIBUTOS
     @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
     private String nombre;
     private Float cantidad;
@@ -26,10 +29,28 @@ public class Producto {
     @ManyToOne
     private Proveedor proveedor;
     
-    //CONSTRUCTOR
+    
+    //CONSTRUCTORES
     public Producto() {
     }
-    
+
+    public Producto(String id, String nombre, Float cantidad, String descripcion, Float precio, Proveedor proveedor) {
+        this.id = id;
+        this.nombre = nombre;
+        this.cantidad = cantidad;
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.proveedor = proveedor;
+    }
+
+    public Producto(String nombre, Float cantidad, String descripcion, Float precio, Proveedor proveedor) {
+        this.nombre = nombre;
+        this.cantidad = cantidad;
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.proveedor = proveedor;
+    }
+
     //GETTES
     public String getId() {
         return id;
@@ -58,12 +79,7 @@ public class Producto {
     public Proveedor getProveedor() {
         return proveedor;
     }
-
-    
-
-    
-    
-    
+ 
     //SETTERS
     public void setId(String id) {
         this.id = id;
@@ -93,9 +109,16 @@ public class Producto {
         this.proveedor = proveedor;
     }
 
+    //METODOS
     
-
+    public boolean sinExistencia(){
+        
+        return this.cantidad <= 0;
+    }
     
-    
+    public void restarExistencia(Float cantidad){
+        this.cantidad -= cantidad;
+    }
+ 
     
 }

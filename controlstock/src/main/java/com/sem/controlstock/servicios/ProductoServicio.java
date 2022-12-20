@@ -23,15 +23,14 @@ public class ProductoServicio {
     private ProveedorRepositorio proveedorRepositorio;
     
     @Transactional
-    public void crearProducto(String id, String nombre, Float cantidad, String descripcion, Float precio, String idProveedor) throws MiException{
+    public void crearProducto(String nombre, Float cantidad, String descripcion, Float precio, String idProveedor) throws MiException{
         
         
-        validar(id, nombre, cantidad, descripcion, precio, idProveedor);
+        validar(nombre, cantidad, descripcion, precio, idProveedor);
         
         Proveedor proveedor = proveedorRepositorio.findById(idProveedor).get();
         Producto producto = new Producto();
         
-        producto.setId(id);
         producto.setNombre(nombre);
         producto.setCantidad(cantidad);
         producto.setDescripcion(descripcion);
@@ -55,9 +54,10 @@ public class ProductoServicio {
         return productos;
     }
     
-    public void modificarLibro(String id, String nombre, Float cantidad, String descripcion, Float precio, String idProveedor) throws MiException{
+    @Transactional
+    public void modificarProducto(String id, String nombre, Float cantidad, String descripcion, Float precio, String idProveedor) throws MiException{
         
-        validar(id, nombre, cantidad, descripcion, precio, idProveedor);
+        validar(nombre, cantidad, descripcion, precio, idProveedor);
         
         Optional<Producto> respuesta = productoRepositorio.findById(id);
         Optional<Proveedor> respuestaProveedor = proveedorRepositorio.findById(idProveedor);
@@ -72,6 +72,7 @@ public class ProductoServicio {
             
             Producto producto = respuesta.get();
             
+            producto.setId(id);
             producto.setNombre(nombre);
             producto.setCantidad(cantidad);
             producto.setDescripcion(descripcion);
@@ -84,11 +85,16 @@ public class ProductoServicio {
         }
     }
     
-    private void validar(String id, String nombre, Float cantidad, String descripcion, Float precio, String idProveedor) throws MiException{
+    public Producto getOne(String id) {
+        return productoRepositorio.getOne(id);
+    }
+
+    public void elminarProducto(String id) {
+        productoRepositorio.deleteById(id);
+    }
+    
+    private void validar(String nombre, Float cantidad, String descripcion, Float precio, String idProveedor) throws MiException{
         
-        if (id == null) {
-            throw new MiException("El id no puede ser nulo");
-        }
         
         if (nombre == null || nombre.isEmpty()) {
             throw new MiException("El nombre no puede ser nulo ni estar vacio");

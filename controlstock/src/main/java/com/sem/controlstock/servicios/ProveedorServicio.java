@@ -39,7 +39,12 @@ public class ProveedorServicio {
         return proveedores;
     }
     
+    @Transactional
     public void modificarProveedor(String id, String nombre, String email, String telefono, String lugar) throws MiException{
+        
+        if (id == null || id.isEmpty()) {
+            throw new MiException("El id no puede ser nulo ni estar vacio");
+        }
         
         validar(nombre, email, lugar, telefono);
         
@@ -59,6 +64,10 @@ public class ProveedorServicio {
     
     public Proveedor getOne(String id){
         return proveedorRepositorio.getOne(id);
+    }
+    
+    public void elminarProveedor(String id){
+        proveedorRepositorio.deleteById(id);
     }
     
     private void validar(String nombre, String email, String lugar, String telefono) throws MiException{

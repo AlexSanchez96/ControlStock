@@ -19,7 +19,7 @@ public class ClienteServicio {
     @Transactional
     public void crearCliente(String nombre, String email, String direccion, String lugar, String telefono) throws MiException{
         
-        validar(nombre, email, lugar, telefono);
+        validar(nombre, email, direccion, lugar, telefono);
         
         Cliente cliente = new Cliente();
         
@@ -40,9 +40,10 @@ public class ClienteServicio {
         return clientes;
     }
     
+    @Transactional
     public void modificarCliente(String id, String nombre, String email, String direccion, String lugar, String telefono) throws MiException{
         
-        validar(nombre, email, lugar, telefono);
+        validar(nombre, email, direccion, lugar, telefono);
         
         Optional<Cliente> respuesta = clienteRepositorio.findById(id);
         
@@ -59,13 +60,21 @@ public class ClienteServicio {
         }
     }
     
-    private void validar(String nombre, String email, String lugar, String telefono) throws MiException{
+    public Cliente getOne(String id){
+        return clienteRepositorio.getOne(id);
+    }
+    
+    private void validar(String nombre, String email, String direccion, String lugar, String telefono) throws MiException{
         if (nombre == null || nombre.isEmpty()) {
             throw new MiException("El nombre no puede ser nulo ni estar vacio");
         }
         
         if (email == null || email.isEmpty()) {
             throw new MiException("El email no puede ser nulo ni estar vacio");
+        }
+        
+        if (direccion == null || direccion.isEmpty()) {
+            throw new MiException("La dirección no puede ser nula ni estar vacia");
         }
         
         if (lugar == null || lugar.isEmpty()) {

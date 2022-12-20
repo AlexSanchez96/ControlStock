@@ -15,4 +15,6 @@ public interface ProductoRepositorio extends JpaRepository<Producto, String>{
     
     @Query("SELECT p FROM Producto p WHERE p.proveedor.nombre = :nombre")
     public List<Producto> buscarPorProveedor(@Param ("nombre") String nombre);
+    
+    Producto findFirstByNombre(String nombre);
 }

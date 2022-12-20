@@ -1,60 +1,57 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Control Stock</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-    </head>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="master">
+    <head th:replace = "/layouts/encabezado :: head"</head>
     <body>
         <header>
-            <div class="container">
-                <h2>MODIFICAR PROVEEDOR</h2>
-            </div>
+            <nav th:replace="/layouts/navbar :: nav" </nav>
         </header>
-        
-        <div class="container">
-            
-            <form th:action="@{/proveedor/modificar/__${proveedor.id}__}" method="POST">
-                
-                <input hidden th:value="${id}" name="id">
-                
-                
-                <div class="mb-3">
-                    <label for="formGroupExampleInput" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" id="formGroupExampleInput" th:value="${proveedor.nombre}" name="nombre">
-                </div>
-                
-                <div class="mb-3">
-                    <label for="formGroupExampleInput2" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="formGroupExampleInput2" th:value="${proveedor.email}" name="email">
-                </div>
-                
-                <div class="mb-3">
-                    <label for="formGroupExampleInput2" class="form-label">Lugar</label>
-                    <input type="text" class="form-control" id="formGroupExampleInput2" th:value="${proveedor.lugar}" name="lugar">
-                </div>
-                
-                <div class="mb-3">
-                    <label for="formGroupExampleInput2" class="form-label">Teléfono</label>
-                    <input type="tel" class="form-control" id="formGroupExampleInput2" th:value="${proveedor.telefono}" name="telefono">
-                </div>
-                
+        <main>
+            <div class="col-8">
+                <h2>Modificar proveedor</h2>
                 <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError">
                     <div class="card-body">
                         <h5 class="card-title">Error!</h5>
                         <p class="card-text" th:text="${error}"></p>
                     </div>
                 </div>
-                
-                <div class="col-12">
-                    <button type="submit" class="btn btn-primary">Modificar</button>
-                </div>
-            </form>
-            
-            
-        </div>
-        
+
+                <form th:action="@{/proveedor/modificar/__${proveedor.id}__}" method="POST">
+                    
+                    <input hidden th:value="${id}" name="id">
+                    
+                    <div class="form-group">
+                        <label for="nombre">Nombre del proveedor</label>
+                        <input autocomplete="off" autofocus id="nombre"
+                               placeholder="Escribe el nombre del proveedor" type="text"
+                               class="form-control" name="nombre" th:value="${proveedor.nombre}">
+                    </div>
+                    <div class="form-group">
+                        <label for=>Email</label>
+                        <input autocomplete="off" id=""
+                               placeholder="Email del proveedor" type="email"
+                               class="form-control" name="email" th:value="${proveedor.email}">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Lugar</label>
+                        <input autocomplete="off" id="" placeholder="Escribe el lugar"
+                               type="text"
+                               class="form-control" name="lugar" th:value="${proveedor.lugar}">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Teléfono</label>
+                        <input autocomplete="off" id="" placeholder="Teléfono del proveedor"
+                               type="tel"
+                               class="form-control" name="telefono" th:value="${proveedor.telefono}">
+                    </div>
+                     
+                    <button class="btn btn-success" type="submit">Modificar</button>
+                    <a class="btn btn-warning" th:href="@{/proveedor/lista}">Ver todos</a>
+                </form>
+            </div>
+        </main>
+        <footer th:replace = "/layouts/pie :: footer"</footer>
     </body>
 </html>
 
